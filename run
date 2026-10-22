@@ -4,27 +4,27 @@ set -e -o pipefail
 repo_root="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
 function buildx_11_buster_postgres { # [...docker buildx build flags]: builds multi-arch factalinc/postgres:11.16-buster image
-  docker buildx build --platform linux/386,linux/arm64/v8,linux/amd64 --tag factalinc/postgres:11.16-buster "$repo_root/11/buster/postgres" "$@"
+  docker buildx build --platform linux/arm64/v8,linux/amd64 --tag factalinc/postgres:11.16-buster "$repo_root/11/buster/postgres" "$@"
 }
 
 function buildx_11_buster_postgis { # [...docker buildx build flags]: builds multi-arch factalinc/postgis:2.5-11.16-buster image
-  docker buildx build --platform linux/386,linux/arm64/v8,linux/amd64 --tag factalinc/postgis:2.5-11.16-buster "$repo_root/11/buster/postgis" "$@"
+  docker buildx build --platform linux/arm64/v8,linux/amd64 --tag factalinc/postgis:2.5-11.16-buster "$repo_root/11/buster/postgis" "$@"
 }
 
 function buildx_15_bookworm_postgres { # [...docker buildx build flags]: builds multi-arch factalinc/postgres:15.3-bookworm image
-  docker buildx build --platform linux/386,linux/arm64/v8,linux/amd64 --tag factalinc/postgres:15.3-bookworm "$repo_root/15/bookworm/postgres" "$@"
+  docker buildx build --platform linux/arm64/v8,linux/amd64 --tag factalinc/postgres:15.3-bookworm "$repo_root/15/bookworm/postgres" "$@"
 }
 
 function buildx_15_bookworm_postgis { # [...docker buildx build flags]: builds multi-arch factalinc/postgis:3-15.3-bookworm image
-  docker buildx build --platform linux/386,linux/arm64/v8,linux/amd64 --tag factalinc/postgis:3-15.3-bookworm "$repo_root/15/bookworm/postgis" "$@"
+  docker buildx build --platform linux/arm64/v8,linux/amd64 --tag factalinc/postgis:3-15.3-bookworm "$repo_root/15/bookworm/postgis" "$@"
 }
 
 function buildx_15_17_trixie_postgres { # [...docker buildx build flags]: builds multi-arch factalinc/postgres:15.17-trixie image
-  docker buildx build --platform linux/386,linux/arm64/v8,linux/amd64 --tag factalinc/postgres:15.17-trixie "$repo_root/15.17/trixie/postgres" "$@"
+  docker buildx build --platform linux/arm64/v8,linux/amd64 --tag factalinc/postgres:15.17-trixie "$repo_root/15.17/trixie/postgres" "$@"
 }
 
 function buildx_15_17_trixie_postgis { # [...docker buildx build flags]: builds multi-arch factalinc/postgis:3-15.17-trixie image
-  docker buildx build --platform linux/386,linux/arm64/v8,linux/amd64 --tag factalinc/postgis:3-15.17-trixie "$repo_root/15.17/trixie/postgis" "$@"
+  docker buildx build --platform linux/arm64/v8,linux/amd64 --tag factalinc/postgis:3-15.17-trixie "$repo_root/15.17/trixie/postgis" "$@"
 }
 
 function build_11_buster_postgres { # [...docker buildx build flags]: builds factalinc/postgres:11.16-buster image for only the currect arch
@@ -80,6 +80,11 @@ function buildx_all { # [...docker buildx build flags]: builds multi-arch postgr
   buildx_11_buster_postgis "$@"
   buildx_15_bookworm_postgres "$@"
   buildx_15_bookworm_postgis "$@"
+  buildx_15_17_trixie_postgres "$@"
+  buildx_15_17_trixie_postgis "$@"
+}
+
+function buildx_all_trixie { # [...docker buildx build flags]: builds multi-arch postgres and postgis images
   buildx_15_17_trixie_postgres "$@"
   buildx_15_17_trixie_postgis "$@"
 }

@@ -4,20 +4,45 @@ set -e -o pipefail
 repo_root="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
 function buildx_11_buster_postgres { # [...docker buildx build flags]: builds multi-arch factalinc/postgres:11.16-buster image
-  docker buildx build --platform linux/386,linux/arm64/v8,linux/amd64 --tag factalinc/postgres:11.16-buster "$repo_root/11/buster/postgres" "$@"
+  docker buildx build --platform linux/arm64/v8,linux/amd64 --tag factalinc/postgres:11.16-buster "$repo_root/11/buster/postgres" "$@"
 }
 
 function buildx_11_buster_postgis { # [...docker buildx build flags]: builds multi-arch factalinc/postgis:2.5-11.16-buster image
-  docker buildx build --platform linux/386,linux/arm64/v8,linux/amd64 --tag factalinc/postgis:2.5-11.16-buster "$repo_root/11/buster/postgis" "$@"
+  docker buildx build --platform linux/arm64/v8,linux/amd64 --tag factalinc/postgis:2.5-11.16-buster "$repo_root/11/buster/postgis" "$@"
 }
 
 function buildx_15_bookworm_postgres { # [...docker buildx build flags]: builds multi-arch factalinc/postgres:15.3-bookworm image
-  docker buildx build --platform linux/386,linux/arm64/v8,linux/amd64 --tag factalinc/postgres:15.3-bookworm "$repo_root/15/bookworm/postgres" "$@"
+  docker buildx build --platform linux/arm64/v8,linux/amd64 --tag factalinc/postgres:15.3-bookworm "$repo_root/15/bookworm/postgres" "$@"
 }
 
 function buildx_15_bookworm_postgis { # [...docker buildx build flags]: builds multi-arch factalinc/postgis:3-15.3-bookworm image
-  docker buildx build --platform linux/386,linux/arm64/v8,linux/amd64 --tag factalinc/postgis:3-15.3-bookworm "$repo_root/15/bookworm/postgis" "$@"
+  docker buildx build --platform linux/arm64/v8,linux/amd64 --tag factalinc/postgis:3-15.3-bookworm "$repo_root/15/bookworm/postgis" "$@"
 }
+
+function buildx_15_17_trixie_postgres { # [...docker buildx build flags]: builds multi-arch factalinc/postgres:15.17-trixie image
+  docker buildx build --platform linux/arm64/v8,linux/amd64 --tag factalinc/postgres:15.17-trixie "$repo_root/15.17/trixie/postgres" "$@"
+}
+
+function buildx_15_17_trixie_postgis { # [...docker buildx build flags]: builds multi-arch factalinc/postgis:3-15.17-trixie image
+  docker buildx build --platform linux/arm64/v8,linux/amd64 --tag factalinc/postgis:3-15.17-trixie "$repo_root/15.17/trixie/postgis" "$@"
+}
+
+function buildx_15_19_trixie_postgres { # [...docker buildx build flags]: builds multi-arch factalinc/postgres:15.19-trixie image
+  docker buildx build --platform linux/arm64/v8,linux/amd64 --tag factalinc/postgres:15.19-trixie "$repo_root/15.19/trixie/postgres" "$@"
+}
+
+function buildx_15_19_trixie_postgis { # [...docker buildx build flags]: builds multi-arch factalinc/postgis:3-15.19-trixie image
+  docker buildx build --platform linux/arm64/v8,linux/amd64 --tag factalinc/postgis:3-15.19-trixie "$repo_root/15.19/trixie/postgis" "$@"
+}
+
+function buildx_18_6_trixie_postgres { # [...docker buildx build flags]: builds multi-arch factalinc/postgres:18.6-trixie image
+  docker buildx build --platform linux/arm64/v8,linux/amd64 --tag factalinc/postgres:18.6-trixie "$repo_root/18.6/trixie/postgres" "$@"
+}
+
+function buildx_18_6_trixie_postgis { # [...docker buildx build flags]: builds multi-arch factalinc/postgis:3-18.6-trixie image
+  docker buildx build --platform linux/arm64/v8,linux/amd64 --tag factalinc/postgis:3-18.6-trixie "$repo_root/18.6/trixie/postgis" "$@"
+}
+
 
 function build_11_buster_postgres { # [...docker buildx build flags]: builds factalinc/postgres:11.16-buster image for only the currect arch
   docker buildx build --tag factalinc/postgres:11.16-buster "$repo_root/11/buster/postgres" "$@"
@@ -33,6 +58,30 @@ function build_15_bookworm_postgres { # [...docker buildx build flags]: builds f
 
 function build_15_bookworm_postgis { # [...docker buildx build flags]: builds factalinc/postgis:3-15.3-bookworm image for only the currect arch
   docker buildx build --tag factalinc/postgis:3-15.3-bookworm "$repo_root/15/bookworm/postgis" "$@"
+}
+
+function build_15_17_trixie_postgis { # [...docker buildx build flags]: builds factalinc/postgis:3-15.17-trixie image for only the currect arch
+  docker buildx build --tag factalinc/postgis:3-15.17-trixie "$repo_root/15.17/trixie/postgis" "$@"
+}
+
+function build_15_17_trixie_postgres { # [...docker buildx build flags]: builds factalinc/postgres:15.17-trixie image for only the currect arch
+  docker buildx build --tag factalinc/postgres:15.17-trixie "$repo_root/15.17/trixie/postgres" "$@"
+}
+
+function build_15_19_trixie_postgis { # [...docker buildx build flags]: builds factalinc/postgis:3-15.19-trixie image for only the currect arch
+  docker buildx build --tag factalinc/postgis:3-15.19-trixie "$repo_root/15.19/trixie/postgis" "$@"
+}
+
+function build_15_19_trixie_postgres { # [...docker buildx build flags]: builds factalinc/postgres:15.19-trixie image for only the currect arch
+  docker buildx build --tag factalinc/postgres:15.19-trixie "$repo_root/15.19/trixie/postgres" "$@"
+}
+
+function build_18_6_trixie_postgis { # [...docker buildx build flags]: builds factalinc/postgis:3-18.6-trixie image for only the currect arch
+  docker buildx build --tag factalinc/postgis:3-18.6-trixie "$repo_root/18.6/trixie/postgis" "$@"
+}
+
+function build_18_6_trixie_postgres { # [...docker buildx build flags]: builds factalinc/postgres:18.6-trixie image for only the currect arch
+  docker buildx build --tag factalinc/postgres:18.6-trixie "$repo_root/18.6/trixie/postgres" "$@"
 }
 
 function remove_11_buster_postgres { # [...docker image rm flags]: removes factalinc/postgres:11.16-buster image
@@ -51,11 +100,58 @@ function remove_15_bookworm_postgis { # [...docker image rm flags]: removes fact
   docker image rm --force factalinc/postgis:3-15.3-bookworm "$@"
 }
 
+function remove_15_17_trixie_postgres { # [...docker image rm flags]: removes factalinc/postgres:15.17-trixie image
+  docker image rm --force factalinc/postgres:15.17-trixie "$@"
+}
+
+function remove_15_17_trixie_postgis { # [...docker image rm flags]: removes factalinc/postgis:3-15.17-trixie image
+  docker image rm --force factalinc/postgis:3-15.17-trixie "$@"
+}
+
+function remove_15_19_trixie_postgres { # [...docker image rm flags]: removes factalinc/postgres:15.19-trixie image
+  docker image rm --force factalinc/postgres:15.19-trixie "$@"
+}
+
+function remove_15_19_trixie_postgis { # [...docker image rm flags]: removes factalinc/postgis:3-15.19-trixie image
+  docker image rm --force factalinc/postgis:3-15.19-trixie "$@"
+}
+
+function remove_18_6_trixie_postgres { # [...docker image rm flags]: removes factalinc/postgres:18.6-trixie image
+  docker image rm --force factalinc/postgres:18.6-trixie "$@"
+}
+
+function remove_18_6_trixie_postgis { # [...docker image rm flags]: removes factalinc/postgis:3-18.6-trixie image
+  docker image rm --force factalinc/postgis:3-18.6-trixie "$@"
+}
+
 function buildx_all { # [...docker buildx build flags]: builds multi-arch postgres and postgis images
   buildx_11_buster_postgres "$@"
   buildx_11_buster_postgis "$@"
   buildx_15_bookworm_postgres "$@"
   buildx_15_bookworm_postgis "$@"
+  buildx_15_17_trixie_postgres "$@"
+  buildx_15_17_trixie_postgis "$@"
+  buildx_15_19_trixie_postgres "$@"
+  buildx_15_19_trixie_postgis "$@"
+  buildx_18_6_trixie_postgres "$@"
+  buildx_18_6_trixie_postgis "$@"
+}
+
+function buildx_all_bookworm { # [...docker buildx build flags]: builds multi-arch postgres and postgis images
+  ## this doesn't work, btw, I think probably because it's a too-old version of postgres.
+  buildx_15_bookworm_postgres "$@"
+  buildx_15_bookworm_postgis "$@"
+  buildx_15_bookworm_postgres "$@"
+  buildx_15_bookworm_postgis "$@"
+}
+
+function buildx_all_trixie { # [...docker buildx build flags]: builds multi-arch postgres and postgis images
+  buildx_15_17_trixie_postgres "$@"
+  buildx_15_17_trixie_postgis "$@"
+  buildx_15_19_trixie_postgres "$@"
+  buildx_15_19_trixie_postgis "$@"
+  buildx_18_6_trixie_postgres "$@"
+  buildx_18_6_trixie_postgis "$@"
 }
 
 function remove_all { # [...docker image rm flags]: removes factalinc/postgis:3-15.3-bookworm image
@@ -63,6 +159,12 @@ function remove_all { # [...docker image rm flags]: removes factalinc/postgis:3-
   remove_11_buster_postgis "$@"
   remove_15_bookworm_postgres "$@"
   remove_15_bookworm_postgis "$@"
+  remove_15_17_trixie_postgres "$@"
+  remove_15_17_trixie_postgis "$@"
+  remove_15_19_trixie_postgres "$@"
+  remove_15_19_trixie_postgis "$@"
+  remove_18_6_trixie_postgres "$@"
+  remove_18_6_trixie_postgis "$@"
 }
 
 if [[ $# -eq 0 || "$1" == "help" ]]; then

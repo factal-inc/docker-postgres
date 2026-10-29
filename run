@@ -125,10 +125,6 @@ function remove_18_6_trixie_postgis { # [...docker image rm flags]: removes fact
 }
 
 function buildx_all { # [...docker buildx build flags]: builds multi-arch postgres and postgis images
-  buildx_11_buster_postgres "$@"
-  buildx_11_buster_postgis "$@"
-  buildx_15_bookworm_postgres "$@"
-  buildx_15_bookworm_postgis "$@"
   buildx_15_17_trixie_postgres "$@"
   buildx_15_17_trixie_postgis "$@"
   buildx_15_19_trixie_postgres "$@"
@@ -137,10 +133,14 @@ function buildx_all { # [...docker buildx build flags]: builds multi-arch postgr
   buildx_18_6_trixie_postgis "$@"
 }
 
+function buildx_all_buster { 
+  # these don't work because they're not in the repo anymore
+  buildx_11_buster_postgres "$@"
+  buildx_11_buster_postgis "$@"
+}
+
 function buildx_all_bookworm { # [...docker buildx build flags]: builds multi-arch postgres and postgis images
-  ## this doesn't work, btw, I think probably because it's a too-old version of postgres.
-  buildx_15_bookworm_postgres "$@"
-  buildx_15_bookworm_postgis "$@"
+  # these don't work because they're not in the repo anymore
   buildx_15_bookworm_postgres "$@"
   buildx_15_bookworm_postgis "$@"
 }

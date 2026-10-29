@@ -1,9 +1,9 @@
 #
-# Custom PostgreSQL 15.3 image for Debian Bookworm (12)
+# Custom PostgreSQL 15.17 image for Debian Trixie (13)
 # Based on https://github.com/docker-library/postgres/blob/74e51d102aede317665f2b4a9b89362135402fe7/11/stretch/Dockerfile
 #
 
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
 RUN set -ex; \
 	if ! command -v gpg > /dev/null; then \
@@ -27,7 +27,7 @@ RUN set -eux; \
 
 # grab gosu for easy step-down from root
 # https://github.com/tianon/gosu/releases
-ENV GOSU_VERSION 1.14
+ENV GOSU_VERSION=1.14
 RUN set -eux; \
 	savedAptMark="$(apt-mark showmanual)"; \
 	apt-get update; \
@@ -58,7 +58,7 @@ RUN set -eux; \
 	fi; \
 	apt-get update; apt-get install -y --no-install-recommends locales; rm -rf /var/lib/apt/lists/*; \
 	localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
-ENV LANG en_US.utf8
+ENV LANG=en_US.utf8
 
 RUN set -eux; \
 	apt-get update; \
@@ -83,10 +83,10 @@ RUN set -ex; \
 	command -v gpgconf > /dev/null && gpgconf --kill all; \
 	rm -rf "$GNUPGHOME"
 
-ENV PG_MAJOR 15
-ENV PATH $PATH:/usr/lib/postgresql/$PG_MAJOR/bin
+ENV PG_MAJOR=15
+ENV PATH=$PATH:/usr/lib/postgresql/$PG_MAJOR/bin
 
-ENV PG_VERSION 15.3-0+deb12u1
+ENV PG_VERSION=15.17-1.pgdg13+1
 
 RUN set -ex; \
 	\
@@ -94,7 +94,7 @@ RUN set -ex; \
 	export PYTHONDONTWRITEBYTECODE=1; \
 	\
 	dpkgArch="$(dpkg --print-architecture)"; \
-	aptRepo="[ signed-by=/usr/local/share/keyrings/postgres.gpg.asc ] http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg main $PG_MAJOR"; \
+	aptRepo="[ signed-by=/usr/local/share/keyrings/postgres.gpg.asc ] http://apt.postgresql.org/pub/repos/apt/ trixie-pgdg main $PG_MAJOR"; \
 	case "$dpkgArch" in \
 		i386 | amd64 | arm64 | ppc64el) \
 # arches officialy built by upstream
@@ -179,7 +179,7 @@ RUN set -eux; \
 
 RUN mkdir -p /var/run/postgresql && chown -R postgres:postgres /var/run/postgresql && chmod 2777 /var/run/postgresql
 
-ENV PGDATA /var/lib/postgresql/data
+ENV PGDATA=/var/lib/postgresql/data
 # this 777 will be replaced by 700 at runtime (allows semi-arbitrary "--user" values)
 RUN mkdir -p "$PGDATA" && chown -R postgres:postgres "$PGDATA" && chmod 777 "$PGDATA"
 VOLUME /var/lib/postgresql/data

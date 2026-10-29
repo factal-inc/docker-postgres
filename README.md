@@ -23,7 +23,7 @@ In general this repo is used to build and push multi-arch images to Docker Hub. 
 
 The `run` script in the root of the repository can be used to perform various Docker image management tasks. For a list of available commands run: `./run`.
 
-We are currently using the `factalinc/postgis:2.5-11.16-buster` image by default in local environments. `factalinc/postgis:3-15.3-bookworm` is considered experimental at this time.
+Check the [web repo's Dockerfiles](https://github.com/factal-inc/web/tree/master/compose/postgres) to confirm the currently in-use image.
 
 ### Building and deploying images to Docker Hub
 
@@ -60,13 +60,13 @@ You shouldn't often need to do this but if you're trying to debug issues with im
 
 For example if you wanted to build and load the PostgreSQL 15 / PostGIS 3 image on your local you would do so as follows. Note that is using `build_15` **not** `buildx_15`.
 ```
-./run build_15_bookworm_postgis --load
+./run build_15_17_trixie_postgis --load
 ```
 
 Assuming the build and load succeeds you can then start a container using this image. For example:
 ```
 # Run a container named test-postgres. -d to daemonize and detach from the console.
-docker run --name test-postgres -e POSTGRES_PASSWORD=mysecretpassword -d factalinc/postgis:3-15.3-bookworm
+docker run --name test-postgres -e POSTGRES_PASSWORD=mysecretpassword -d factalinc/postgis:3-15.17-trixie
 
 docker ps -a
 CONTAINER ID   IMAGE                               COMMAND                  CREATED         STATUS                      PORTS      NAMES
@@ -80,7 +80,7 @@ docker rm -f test-postgres
 
 You can remove the image via the following run command
 ```
-./run remove_15_bookworm_postgis
+./run remove_15_17_trixie_postgis
 ```
 
 ### Removing all images

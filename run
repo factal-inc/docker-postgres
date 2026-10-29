@@ -93,7 +93,7 @@ function buildx_all_trixie { # [...docker buildx build flags]: builds multi-arch
   buildx_18_6_trixie_postgis "$@"
 }
 
-function remove_all { # [...docker image rm flags]: removes factalinc/postgis:3-15.3-bookworm image
+function remove_all { # [...docker image rm flags]: removes images
   remove_15_17_trixie_postgres "$@"
   remove_15_17_trixie_postgis "$@"
   remove_15_19_trixie_postgres "$@"
